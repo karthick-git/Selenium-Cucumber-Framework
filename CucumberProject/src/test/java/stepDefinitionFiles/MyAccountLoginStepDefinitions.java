@@ -1,6 +1,7 @@
 package stepDefinitionFiles;
 
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
@@ -59,10 +60,10 @@ public class MyAccountLoginStepDefinitions {
 	// Simple login with parameters
 
 	
-	  @And("^Enter registered username \"([^\"]*)\" and password \"([^\"]*)\"$")  
-	  public void enter_registered_username_and_password(String user, String pwd) throws Throwable {
-	  driver.findElement(By.id("username")).sendKeys(user);
-	  driver.findElement(By.id("password")).sendKeys(pwd); }
+//	  @And("^Enter registered username \"([^\"]*)\" and password \"([^\"]*)\"$")  
+//	  public void enter_registered_username_and_password(String user, String pwd) throws Throwable {
+//	  driver.findElement(By.id("username")).sendKeys(user);
+//	  driver.findElement(By.id("password")).sendKeys(pwd); }
 	 
 
 	// Login with data table method
@@ -72,11 +73,19 @@ public class MyAccountLoginStepDefinitions {
 //	  List <List <String>> data=credentials.raw();
 //	  driver.findElement(By.id("username")).sendKeys(data.get(0).get(0));
 //	  driver.findElement(By.id("password")).sendKeys(data.get(0).get(1)); }
-	 
-
+	
+	//login with data table method using header - Map 
+		@When("^Enter registered username and password$")
+		public void enter_registered_username_and_password(DataTable credentials) throws Throwable {
+			List<Map<String,String>> data=credentials.asMaps(String.class,String.class);
+			driver.findElement(By.id("username")).sendKeys(data.get(0).get("user"));
+			driver.findElement(By.id("password")).sendKeys(data.get(0).get("password"));
+		}
+		
 	@When("^Click on login button$")
 	public void click_on_login_button() throws Throwable {
 		driver.findElement(By.name("login")).click();
+		Thread.sleep(2000);
 	}
 
 	@Then("^User must successfully login to the web page$")
@@ -85,7 +94,7 @@ public class MyAccountLoginStepDefinitions {
 		Assert.assertEquals(true, capText.contains("pavanoltraining"));
 	}
 	
-	@Then("^Very login$")
+	@Then("^Verify login$")
 	public void very_login() throws Throwable {
 		String capText=driver.findElement(By.xpath("//*[@id='page-36']/div/div[1]/ul/li/strong")).getText();
 		if(capText.contains("ERROR")) // Test for invalid inputs
