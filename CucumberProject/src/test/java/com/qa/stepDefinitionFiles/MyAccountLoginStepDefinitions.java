@@ -1,4 +1,4 @@
-package stepDefinitionFiles;
+package com.qa.stepDefinitionFiles;
 
 import java.util.List;
 import java.util.Map;

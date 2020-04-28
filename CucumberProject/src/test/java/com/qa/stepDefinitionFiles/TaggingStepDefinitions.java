@@ -1,4 +1,4 @@
-package stepDefinitionFiles;
+package com.qa.stepDefinitionFiles;
 
 import cucumber.api.java.en.Given;
 public class TaggingStepDefinitions {
