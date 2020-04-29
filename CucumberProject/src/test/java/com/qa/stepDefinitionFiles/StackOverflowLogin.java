@@ -8,6 +8,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import com.qa.manager.DriverManager;
+
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.And;
@@ -16,41 +18,15 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import io.github.bonigarcia.wdm.WebDriverManager;
 
-public class Login {
+public class StackOverflowLogin {
+	
 	WebDriver driver;
-	
-	
-	@Before
-	public void setup() {
-		WebDriverManager.chromedriver().setup();
-		this.driver = new ChromeDriver();
-		this.driver.manage().window().maximize();
-		this.driver.manage().timeouts().pageLoadTimeout(60, TimeUnit.SECONDS);
-		this.driver.manage().timeouts().setScriptTimeout(60, TimeUnit.SECONDS);
-	}
-	
-	
-	/*
-	 * @Before public void setup_firefox() {
-	 * WebDriverManager.firefoxdriver().setup();
-	 * System.setProperty("webdriver.gecko.driver",
-	 * "C:\\Users\\GBruno\\Desktop\\CucumberFramework\\CucumberFramework\\src\\test\\java\\CucumberFramework\\resources\\geckodriver.exe"
-	 * ); // FirefoxOptions firefoxOptions = new FirefoxOptions(); //
-	 * firefoxOptions.setCapability("marionette", true); this.driver = new
-	 * FirefoxDriver(); this.driver.manage().window().maximize();
-	 * this.driver.manage().timeouts().pageLoadTimeout(60, TimeUnit.SECONDS);
-	 * this.driver.manage().timeouts().setScriptTimeout(60, TimeUnit.SECONDS); }
-	 */
-	
-	@After
-	public void tearDown() throws InterruptedException {
-		this.driver.manage().deleteAllCookies();
-		this.driver.quit();
-		this.driver = null;
-	}
+	DriverManager driverManager;
 	
 	@Given("^User navigates to stackoverflow website$")
 	public void user_navigates_to_stackoverflow_website() throws Throwable {
+		driverManager = new DriverManager();
+		driver = driverManager.getDriver();
 		driver.get("https://stackoverflow.com/");
 	}
 

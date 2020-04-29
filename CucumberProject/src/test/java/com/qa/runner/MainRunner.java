@@ -8,7 +8,7 @@ import cucumber.api.junit.Cucumber;
 @RunWith(Cucumber.class)
 
 @CucumberOptions (
-	features = {"./src/main/resources/tags.feature"},
+	features = {"./src/main/resources/DemoQAtests.feature"},
 	glue = {"com.qa.stepDefinitionFiles"},
 	monochrome = true,
 	plugin = {"pretty", "html:target/cucumber", 
@@ -16,8 +16,8 @@ import cucumber.api.junit.Cucumber;
 			"com.cucumber.listener.ExtentCucumberFormatter:target/report.html"
 	},
 	dryRun=false,
-	strict=false,
-	tags={"@SanityTest"} // execute only Sanity Tests
+	strict=false
+	//tags={"@SanityTest"} // execute only Sanity Tests
 	//tags={"@SanityTest, @RegressionTest"} // execute only scenarios which are comes under sanity OR regression
 	//tags={"@RegressionTest","@End2End"} //execute scenarios comes under both Regressions and End2End
 	//tags={"@SanityTest","@End2End"} //execute scenarios comes under both Sanity and End2End

@@ -8,6 +8,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import com.qa.manager.DriverManager;
+
 import cucumber.api.DataTable;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
@@ -19,27 +21,13 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import junit.framework.Assert;
 
 public class MyAccountLoginStepDefinitions {
-
 	WebDriver driver;
-
-	@Before
-	public void setup() {
-		WebDriverManager.chromedriver().setup();
-		this.driver = new ChromeDriver();
-		this.driver.manage().window().maximize();
-		this.driver.manage().timeouts().pageLoadTimeout(60, TimeUnit.SECONDS);
-		this.driver.manage().timeouts().setScriptTimeout(60, TimeUnit.SECONDS);
-	}
-
-	@After
-	public void tearDown() throws InterruptedException {
-		this.driver.manage().deleteAllCookies();
-		this.driver.quit();
-		this.driver = null;
-	}
-
+	DriverManager driverManager;
+	
 	@Given("^User navigates to practice automationtesting website$")
 	public void enter_the_URL() throws Throwable {
+		driverManager = new DriverManager();
+		driver = driverManager.getDriver();
 		driver.get("http://practice.automationtesting.in/");
 	}
 
